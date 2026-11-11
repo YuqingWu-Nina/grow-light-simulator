@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive model of a plant grow light with a sped-up daily schedule."
+    />
+    <title>Plant Grow Light Simulator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="page-header">
+        <p class="eyebrow">INTERACTIVE APPLIANCE MODEL</p>
+        <h1>Plant Grow Light</h1>
+        <p class="demo-note">
+          <strong>Demo speed:</strong> 1 second = 1 simulated hour. A full day lasts 24 seconds.
+        </p>
+      </header>
+
+      <section class="simulator" aria-label="Plant grow light simulator">
+        <section class="plant-room light-off" id="plantRoom" aria-label="Grow light scene">
+          <div class="sky" aria-hidden="true">
+            <span class="sun">☀</span>
+            <span class="moon">☾</span>
+            <span class="sparkle sparkle-one">✦</span>
+            <span class="sparkle sparkle-two">✦</span>
+          </div>
+
+          <svg class="light-rig" viewBox="0 0 620 500" aria-hidden="true">
+            <polygon class="beam beam-one" points="178,148 316,148 374,452 138,452"></polygon>
+            <polygon class="beam beam-two" points="343,217 510,217 552,452 302,452"></polygon>
+            <path class="gooseneck" d="M78 455 C58 310, 91 173, 188 140"></path>
+            <path class="gooseneck" d="M78 455 C74 343, 151 251, 344 210"></path>
+            <rect class="light-bar" x="166" y="121" width="164" height="34" rx="17"></rect>
+            <rect class="light-core" x="183" y="137" width="130" height="6" rx="3"></rect>
+            <rect class="light-bar" x="329" y="192" width="194" height="34" rx="17"></rect>
+            <rect class="light-core" x="347" y="208" width="158" height="6" rx="3"></rect>
+            <ellipse class="stand-base" cx="78" cy="463" rx="64" ry="18"></ellipse>
+          </svg>
+
+          <div class="plant basil-plant" aria-hidden="true">
+            <div class="leaf leaf-left"></div>
+            <div class="leaf leaf-right"></div>
+            <div class="leaf leaf-top"></div>
+            <div class="stem"></div>
+            <div class="pot"></div>
+            <span class="pot-label">Basil</span>
+          </div>
+
+          <div class="plant scallion-plant" aria-hidden="true">
+            <div class="blade blade-one"></div>
+            <div class="blade blade-two"></div>
+            <div class="blade blade-three"></div>
+            <div class="blade blade-four"></div>
+            <div class="blade blade-five"></div>
+            <div class="pot"></div>
+            <span class="pot-label">Scallions</span>
+          </div>
+          <p class="scene-label" id="sceneLabel">Light is off</p>
+        </section>
+
+        <section class="controller" aria-label="Grow light controls">
+          <div class="controller-top">
+            <p class="controller-kicker">CONTROLLER</p>
+            <div class="power-dot" id="powerDot" aria-hidden="true"></div>
+          </div>
+
+          <p class="status" id="statusText" aria-live="polite">
+            Manual mode · light is off
+          </p>
+
+          <form id="controllerForm">
+            <button class="power-button" id="powerButton" type="button" aria-pressed="false">
+              <span aria-hidden="true">⏻</span> ON / OFF
+            </button>
+
+            <fieldset class="brightness-control">
+              <legend>Brightness</legend>
+              <label>
+                <input type="radio" name="brightness" value="50" checked />
+                <span>50%</span>
+              </label>
+              <label>
+                <input type="radio" name="brightness" value="100" />
+                <span>100%</span>
+              </label>
+            </fieldset>
+
+            <div class="timer-control">
+              <p class="control-label">Daily timer</p>
+              <div class="timer-actions">
+                <button id="startButton" type="button">Start / Next Timer</button>
+                <button id="cancelButton" type="button">Cancel</button>
+              </div>
+              <div class="timer-indicators" aria-label="Timer indicators">
+                <span class="timer-dot" data-hours="4">4H</span>
+                <span class="timer-dot" data-hours="8">8H</span>
+                <span class="timer-dot" data-hours="12">12H</span>
+              </div>
+            </div>
+          </form>
+
+          <div class="cycle-card" id="cycleCard">
+            <div class="cycle-heading">
+              <span>24-hour cycle</span>
+              <span id="hourReadout">—</span>
+            </div>
+            <div class="cycle-track" aria-hidden="true">
+              <div class="cycle-progress" id="cycleProgress"></div>
+            </div>
+            <p id="cycleText">No daily timer is active.</p>
+          </div>
+        </section>
+      </section>
+
+      <aside class="model-note">
+        <h2>Model note</h2>
+        <p>
+          This model is based on observed controls. Unobserved behavior is simplified: selecting a new timer starts a fresh cycle, turning the light off cancels the schedule, and a page refresh resets the model.
+        </p>
+      </aside>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
